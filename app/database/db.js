@@ -26,7 +26,25 @@ const create = (doc, id) => {
   })
 }
 
+const view = (design, name, startkey, endkey) => {
+  const params = {
+    group: true,
+    reduce: true,
+    startkey,
+    endkey
+  }
+
+  // console.log(`Quering view ${name} with params ${JSON.stringify(params)}`)
+  return new Promise((resolve, reject) => {
+    db.view(design, name, params, (err, body) => {
+      if(err) return reject(err)
+      resolve(body)
+    })
+  })
+}
+
 module.exports = {
   ensureDb,
-  create
+  create,
+  view
 }

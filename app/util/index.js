@@ -1,3 +1,4 @@
+const moment = require('moment')
 const cfenv = require('cfenv')
 const appEnv = cfenv.getAppEnv()
 
@@ -7,6 +8,11 @@ const uniqueAppName = () => {
   return `${name}-${ts}`
 }
 
+const dateToArray = date => moment(date).toArray()
+const dateValid = date => moment(date).isValid()
+
 module.exports = {
-  uniqueAppName
+  uniqueAppName,
+  dateToArray,
+  dateValid
 }
