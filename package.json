@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "cfenv": "1.0.3",
+    "ibmiotf": "0.2.22",
+    "nano": "6.2.0"
+  }
+}

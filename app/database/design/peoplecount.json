@@ -1,0 +1,16 @@
+{
+  "views": {
+    "by_day": {
+      "map": "function (doc) {\n  if(doc.type === \"peoplecount\") {\n    var date = new Date(doc.time);\n    var y = date.getFullYear();\n    var M = date.getMonth();\n    var d = date.getDate();\n    emit([y, M, d], doc.direction);\n  }\n}",
+      "reduce": "function (keys, values, rereduce) {\n  if(rereduce) {\n    return values.reduce(function(p, c){\n      p.in += c.in;\n      p.out += c.out;\n      return p;\n    });\n  } else {\n    return values.reduce(function(p, c) {\n      p[c]++;\n      return p;\n    }, {in:0, out:0});\n  }\n}"
+    },
+    "by_hour": {
+      "map": "function (doc) {\n  if(doc.type === \"peoplecount\") {\n    var date = new Date(doc.time);\n    var y = date.getFullYear();\n    var M = date.getMonth();\n    var d = date.getDate();\n    var H = date.getHours();\n    emit([y, M, d, H], doc.direction);\n  }\n}",
+      "reduce": "function (keys, values, rereduce) {\n  if(rereduce) {\n    return values.reduce(function(p, c){\n      p.in += c.in;\n      p.out += c.out;\n      return p;\n    });\n  } else {\n    return values.reduce(function(p, c) {\n      p[c]++;\n      return p;\n    }, {in:0, out:0});\n  }\n}"
+    },
+    "by_minute": {
+      "map": "function (doc) {\n  if(doc.type === \"peoplecount\") {\n    var date = new Date(doc.time);\n    var y = date.getFullYear();\n    var M = date.getMonth();\n    var d = date.getDate();\n    var H = date.getHours();\n    var m = date.getMinutes();\n    emit([y, M, d, H, m], doc.direction);\n  }\n}",
+      "reduce": "function (keys, values, rereduce) {\n  if(rereduce) {\n    return values.reduce(function(p, c){\n      p.in += c.in;\n      p.out += c.out;\n      return p;\n    });\n  } else {\n    return values.reduce(function(p, c) {\n      p[c]++;\n      return p;\n    }, {in:0, out:0});\n  }\n}"
+    }
+  }
+}
