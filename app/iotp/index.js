@@ -2,7 +2,6 @@ const cfenv = require('cfenv')
 const iotf = require('ibmiotf')
 const receiver = require('./receiver')
 const config = require('../config')
-const util = require('../util')
 
 const appEnv = cfenv.getAppEnv()
 const creds = appEnv.getServiceCreds(config.iotpName)
@@ -10,7 +9,7 @@ if(!creds) throw new Error(`credentials not found for ${config.iotpName}`)
 
 const client = new iotf.IotfApplication({
   'org': creds.org,
-  'id': util.uniqueAppName(),
+  'id': 'mini-mads',
   'type': 'shared',
   'auth-key': creds.apiKey,
   'auth-token': creds.apiToken
