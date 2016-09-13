@@ -17,6 +17,14 @@ const ensureDb = () => {
   }) 
 }
 
+const ensureDoc = (doc, id) => {
+  return create(doc, id)
+  .catch(err => {
+    if(err.statusCode === 409) return `Document "${id}" found`
+    throw err
+  })
+}
+
 const create = (doc, id) => {
   return new Promise((resolve, reject) => {
     db.insert(doc, id, (err, body) => {
@@ -45,6 +53,7 @@ const view = (design, name, startkey, endkey) => {
 
 module.exports = {
   ensureDb,
+  ensureDoc,
   create,
   view
 }

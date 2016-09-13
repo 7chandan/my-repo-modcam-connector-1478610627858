@@ -2,14 +2,12 @@ const db = require('./db')
 const peoplecount = require('./design/peoplecount.json')
 
 const init = () => {
-  return db.ensureDb()
-  .then(console.log)
-  .then(() => {
-    return db.create(peoplecount, '_design/peoplecount')
-  })
-  .catch(err => {
-    if(err.statusCode === 409) return 'Design document found'
-    throw err
+  const ensureDb = db.ensureDb()
+  const ensureDesign = db.ensureDoc(peoplecount, '_design/peoplecount')
+
+  return Promise.all([ensureDb, ensureDesign])
+  .then(messages => {
+    return messages.reduce((p, c) => `${p}. ${c}`)
   })
 }
 
