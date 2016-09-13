@@ -32,9 +32,6 @@ const close = () => {
   client.disconnect()
 }
 
-// why no work?
-// const close = client.disconnect
-
 const subscribe = () => {
   config.events.forEach(event => {
     client.subscribeToDeviceEvents('+', '+', event)
