@@ -2,7 +2,7 @@ const config = {
   events: [
     'count'
   ],
-  logLevel: process.env.LOG_LEVEL || 'error',
+  logLevel: process.env.LOG_LEVEL || 'info',
   iotpName: 'mc-iotp',
   cloudantName: 'mc-cloudant'
 }

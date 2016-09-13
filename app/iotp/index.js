@@ -14,7 +14,7 @@ const client = new iotf.IotfApplication({
   'auth-key': creds.apiKey,
   'auth-token': creds.apiToken
 })
-client.log.setLevel(config.logLevel)
+client.log.setLevel('error')
 
 const connect = () => {
   client.connect()
