@@ -7,8 +7,8 @@ const create = data => {
   return db.create(json)
 }
 
-const read = (by, start, end) => {
-  const name = `by_${by}`
+const read = (projection, start, end) => {
+  const name = `by_${projection}`
   const startkey = util.dateToArray(start)
   const endkey = util.dateToArray(end)
   return db.view('peoplecount', name, startkey, endkey)
