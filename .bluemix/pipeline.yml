@@ -34,5 +34,5 @@ stages:
       application: ${CF_APP_NAME}
     script: |
       #!/bin/bash
-      echo Pushing $CF_APP_NAME
-      cf push $CF_APP_NAME
+      echo Pushing $CF_APP
+      cf push $CF_APP
