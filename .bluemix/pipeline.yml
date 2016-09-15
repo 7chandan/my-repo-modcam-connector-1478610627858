@@ -35,4 +35,4 @@ stages:
     script: |
       #!/bin/bash
       echo Pushing $CF_APP
-      cf push $CF_APP
+      cf push $CF_APP --no-start
