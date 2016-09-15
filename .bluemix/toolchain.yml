@@ -9,7 +9,7 @@ required:
 repo:
   service_id: githubpublic
   parameters:
-    repo_name: "{{name}}"
+    repo_name: "my-{{name}}"
     repo_url: https://github.com/lorentzlasson/modcam-connector
     type: clone
     has_issues: false
