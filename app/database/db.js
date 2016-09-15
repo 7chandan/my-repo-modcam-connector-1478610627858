@@ -42,7 +42,6 @@ const view = (design, name, startkey, endkey) => {
     endkey
   }
 
-  // console.log(`Quering view ${name} with params ${JSON.stringify(params)}`)
   return new Promise((resolve, reject) => {
     db.view(design, name, params, (err, body) => {
       if(err) return reject(err)
