@@ -9,7 +9,7 @@ if(!creds) throw new Error(`credentials not found for ${config.iotpName}`)
 
 const client = new iotf.IotfApplication({
   'org': creds.org,
-  'id': 'mini-mads',
+  'id': 'modcam-connector',
   'type': 'shared',
   'auth-key': creds.apiKey,
   'auth-token': creds.apiToken
