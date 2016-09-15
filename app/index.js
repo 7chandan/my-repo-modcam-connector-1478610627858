@@ -16,5 +16,5 @@ database.init().then(logger.info)
 })
 .catch(err => {
   logger.error(`Failed to setup application: ${err}`)
-  logger.error(`Stack: ${err.stack}`)
+  if(err.stack) logger.error(`Stack: ${err.stack}`)
 })
