@@ -11,9 +11,7 @@ const validate = [
     const start = req.params.start
     const end = req.params.end
 
-    const validProj = projections.some(p => {
-      return p === proj
-    })
+    const validProj = projections.some(p => p === proj)
 
     if(!validProj)
       return next({status: 400, message: 'Invalid projection'})
