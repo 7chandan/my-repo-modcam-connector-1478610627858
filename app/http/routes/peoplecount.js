@@ -22,8 +22,7 @@ const validate = (req, res, next) => {
   next()
 }
 
-
-const query = (req, res) => {
+const query = (req, res, next) => {
   const proj = req.params.projection
   const start = req.params.start
   const end = req.params.end
@@ -33,8 +32,8 @@ const query = (req, res) => {
     res.json(result)
   })
   .catch(err => {
-    log.error(err)
-    res.status(500).json({message: err.message})
+    const message = `Params: ${JSON.stringify(req.params)}\n\tReason: ${err.message}`
+    next({status: 500, message})
   })
 }
 
@@ -43,8 +42,14 @@ router.get('/:projection/:start/:end', validate, query)
 router.use((err, req, res, next) => {
   next = next || null
 
-  res.status(err.status || 500)
-  if(!err.message) return res.end()
+  const status = err.status || 500
+  res.status(status)
+
+  if(status === 500) {
+    log.error(err.message || 'Server error')
+    return res.end()
+  }
+
   res.json({message: err.message})
 })
 
