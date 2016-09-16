@@ -1,0 +1,14 @@
+---
+declared-services:
+  mc-cloudant:
+    label: cloudantNoSQLDB
+    plan: Shared
+  mc-iotp:
+    label: iotf-service
+    plan: iotf-service-free
+applications:
+- instances: 5
+  memory: 128M
+  services:
+  - mc-iotp
+  - mc-cloudant
