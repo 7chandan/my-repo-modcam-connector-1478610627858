@@ -1,20 +1,20 @@
-const logger = require('winston')
+const log = require('winston')
 const database = require('./database')
 const iotp = require('./iotp')
 const server = require('./http/server')
 const config = require('./config')
 
-logger.level = config.logLevel
+log.level = config.logLevel
 
-database.init().then(logger.info)
-.then(iotp.connect).then(logger.info)
-.then(iotp.subscribe).then(logger.info)
-.then(server.listen).then(logger.info)
+database.init().then(log.info)
+.then(iotp.connect).then(log.info)
+.then(iotp.subscribe).then(log.info)
+.then(server.listen).then(log.info)
 
 .then(() => {
-  logger.info(`App is running`)
+  log.info(`App is running`)
 })
 .catch(err => {
-  logger.error(`Failed to setup application: ${err}`)
-  if(err.stack) logger.error(`Stack: ${err.stack}`)
+  log.error(`Failed to setup application: ${err}`)
+  if(err.stack) log.error(`Stack: ${err.stack}`)
 })

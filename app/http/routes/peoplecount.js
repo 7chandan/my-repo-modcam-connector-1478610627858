@@ -1,5 +1,5 @@
 const express = require('express')
-const logger = require('winston')
+const log = require('winston')
 const util = require('../../util')
 const peoplecount = require('../../database/peoplecount')
 const projections = ['day', 'hour', 'minute', 'second']
@@ -33,7 +33,7 @@ const query = (req, res) => {
     res.json(result)
   })
   .catch(err => {
-    logger.error(err)
+    log.error(err)
     res.status(500).json({message: err.message})
   })
 }

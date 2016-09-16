@@ -1,4 +1,4 @@
-const logger = require('winston')
+const log = require('winston')
 const peoplecount = require('../database/peoplecount')
 
 const handler = {
@@ -7,7 +7,7 @@ const handler = {
 
 const handleEvent = (deviceType, deviceId, eventType, format, payload) => {
   handler[eventType](payload)
-  .then(logger.debug)
+  .then(log.debug)
 }
 
 module.exports = {
