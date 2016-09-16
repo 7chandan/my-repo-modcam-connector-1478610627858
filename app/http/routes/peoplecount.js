@@ -6,23 +6,22 @@ const projections = ['day', 'hour', 'minute', 'second']
 
 const router = express.Router()
 
-const validate = [
-  (req, res, next) => {
-    const proj = req.params.projection
-    const start = req.params.start
-    const end = req.params.end
+const validate = (req, res, next) => {
+  const proj = req.params.projection
+  const start = req.params.start
+  const end = req.params.end
 
-    const validProj = projections.some(p => p === proj)
+  const validProj = projections.some(p => p === proj)
 
-    if(!validProj)
-      return next({status: 400, message: 'Invalid projection'})
+  if(!validProj)
+    return next({status: 400, message: 'Invalid projection'})
 
-    if(!util.dateValid(start) || !util.dateValid(end))
-      return next({status: 400, message: 'Invalid date'})
+  if(!util.dateValid(start) || !util.dateValid(end))
+    return next({status: 400, message: 'Invalid date'})
 
-    next()
-  }  
-]
+  next()
+}
+
 
 const query = (req, res) => {
   const proj = req.params.projection
