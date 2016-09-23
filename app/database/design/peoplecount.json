@@ -18,6 +18,10 @@
     "by_year": {
       "reduce": "function (keys, values, rereduce) {\n  if(rereduce) {\n    return values.reduce(function(p, c){\n      p.in += c.in;\n      p.out += c.out;\n      return p;\n    });\n  } else {\n    return values.reduce(function(p, c) {\n      p[c]++;\n      return p;\n    }, {in:0, out:0});\n  }\n}",
       "map": "function (doc) {\n  if(doc.type === \"peoplecount\") {\n    var date = new Date(doc.time);\n    var y = date.getFullYear();\n    emit([y], doc.direction);\n  }\n}"
+    },
+    "by_month": {
+      "reduce": "function (keys, values, rereduce) {\n  if(rereduce) {\n    return values.reduce(function(p, c){\n      p.in += c.in;\n      p.out += c.out;\n      return p;\n    });\n  } else {\n    return values.reduce(function(p, c) {\n      p[c]++;\n      return p;\n    }, {in:0, out:0});\n  }\n}",
+      "map": "function (doc) {\n  if(doc.type === \"peoplecount\") {\n    var date = new Date(doc.time);\n    var y = date.getFullYear();\n    var M = date.getMonth();\n    emit([y, M], doc.direction);\n  }\n}"
     }
   }
 }
