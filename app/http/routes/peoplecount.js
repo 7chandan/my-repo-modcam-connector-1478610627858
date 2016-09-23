@@ -16,7 +16,9 @@ const validate = (req, res, next) => {
   if(!validProj)
     return next({status: 400, message: 'Invalid projection'})
 
-  if(!util.dateValid(start) || !util.dateValid(end))
+  const invalidStart = !util.dateValid(new Date(start))
+  const invalidEnd = !util.dateValid(new Date(end))
+  if(invalidStart || invalidEnd)
     return next({status: 400, message: 'Invalid date'})
 
   next()
