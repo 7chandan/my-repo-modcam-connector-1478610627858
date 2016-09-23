@@ -2,7 +2,7 @@ const express = require('express')
 const log = require('winston')
 const util = require('../../util')
 const peoplecount = require('../../database/peoplecount')
-const projections = ['day', 'hour', 'minute']
+const projections = ['year', 'day', 'hour', 'minute']
 
 const router = express.Router()
 
