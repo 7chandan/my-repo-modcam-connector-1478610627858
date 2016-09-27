@@ -1,9 +1,11 @@
 const express = require('express')
 const cfenv = require('cfenv')
+const allowCors = require('./allowCors')
 
 const appEnv = cfenv.getAppEnv()
 const app = express()
 
+app.use(allowCors)
 app.use('/peoplecounter', require('./routes/peoplecount'))
 
 const listen = () => {
