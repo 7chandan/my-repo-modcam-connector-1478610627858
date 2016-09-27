@@ -4,7 +4,7 @@ const cfenv = require('cfenv')
 const appEnv = cfenv.getAppEnv()
 const app = express()
 
-app.use('/peoplecount', require('./routes/peoplecount'))
+app.use('/peoplecounter', require('./routes/peoplecount'))
 
 const listen = () => {
   return new Promise((resolve) => {
