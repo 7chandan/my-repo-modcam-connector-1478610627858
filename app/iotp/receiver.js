@@ -6,7 +6,10 @@ const handler = {
 }
 
 const handleEvent = (deviceType, deviceId, eventType, format, payload) => {
-  handler[eventType](payload)
+  const data = JSON.parse(payload.toString())
+  data.deviceId = deviceId
+
+  handler[eventType](data)
   .then(log.debug)
 }
 

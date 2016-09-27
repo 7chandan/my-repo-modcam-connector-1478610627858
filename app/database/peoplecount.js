@@ -2,9 +2,8 @@ const db = require('./db')
 const util = require('../util')
 
 const create = data => {
-  const json = JSON.parse(data.toString())
-  json.type = 'peoplecount'
-  return db.create(json)
+  data.type = 'peoplecount'
+  return db.create(data)
 }
 
 const read = (proj, start, end) => {
