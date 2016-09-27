@@ -2,7 +2,7 @@ const log = require('winston')
 const peoplecount = require('../database/peoplecount')
 
 const handler = {
-  count: data => peoplecount.create(data)
+  'io.modcam.peoplecounter': data => peoplecount.create(data)
 }
 
 const handleEvent = (deviceType, deviceId, eventType, format, payload) => {
