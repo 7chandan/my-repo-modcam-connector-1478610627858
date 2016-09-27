@@ -1,27 +1,27 @@
 {
   "views": {
     "by_day": {
-      "map": "function (doc) {\n  if(doc.type === \"peoplecount\") {\n    var date = new Date(doc.time);\n    var y = date.getFullYear();\n    var M = date.getMonth();\n    var d = date.getDate();\n    emit([doc.deviceId, y, M, d], doc.direction);\n  }\n}",
-      "reduce": "function (keys, values, rereduce) {\n  if(rereduce) {\n    return values.reduce(function(p, c){\n      p.in += c.in;\n      p.out += c.out;\n      return p;\n    });\n  } else {\n    return values.reduce(function(p, c) {\n      p[c]++;\n      return p;\n    }, {in:0, out:0});\n  }\n}"
+      "map": "function (doc) {\n  if(doc.type === \"peoplecount\") {\n    var date = new Date(doc.time);\n    var y = date.getFullYear();\n    var M = date.getMonth();\n    var d = date.getDate();\n    \n    var count = {in:0,out:0};\n    count[doc.direction] = doc.amount;\n    \n    emit([doc.deviceId, y, M, d], count);\n  }\n}",
+      "reduce": "function (keys, values, rereduce) {\n  return values.reduce(function(p, c){\n    p.in += c.in;\n    p.out += c.out;\n    return p;\n  });\n}"
     },
     "by_hour": {
-      "map": "function (doc) {\n  if(doc.type === \"peoplecount\") {\n    var date = new Date(doc.time);\n    var y = date.getFullYear();\n    var M = date.getMonth();\n    var d = date.getDate();\n    var H = date.getHours();\n    emit([doc.deviceId, y, M, d, H], doc.direction);\n  }\n}",
-      "reduce": "function (keys, values, rereduce) {\n  if(rereduce) {\n    return values.reduce(function(p, c){\n      p.in += c.in;\n      p.out += c.out;\n      return p;\n    });\n  } else {\n    return values.reduce(function(p, c) {\n      p[c]++;\n      return p;\n    }, {in:0, out:0});\n  }\n}"
+      "map": "function (doc) {\n  if(doc.type === \"peoplecount\") {\n    var date = new Date(doc.time);\n    var y = date.getFullYear();\n    var M = date.getMonth();\n    var d = date.getDate();\n    var H = date.getHours();\n    \n    var count = {in:0,out:0};\n    count[doc.direction] = doc.amount;\n    \n    emit([doc.deviceId, y, M, d, H], count);\n  }\n}",
+      "reduce": "function (keys, values, rereduce) {\n  return values.reduce(function(p, c){\n    p.in += c.in;\n    p.out += c.out;\n    return p;\n  });\n}"
     },
     "by_minute": {
-      "map": "function (doc) {\n  if(doc.type === \"peoplecount\") {\n    var date = new Date(doc.time);\n    var y = date.getFullYear();\n    var M = date.getMonth();\n    var d = date.getDate();\n    var H = date.getHours();\n    var m = date.getMinutes();\n    emit([doc.deviceId, y, M, d, H, m], doc.direction);\n  }\n}",
-      "reduce": "function (keys, values, rereduce) {\n  if(rereduce) {\n    return values.reduce(function(p, c){\n      p.in += c.in;\n      p.out += c.out;\n      return p;\n    });\n  } else {\n    return values.reduce(function(p, c) {\n      p[c]++;\n      return p;\n    }, {in:0, out:0});\n  }\n}"
+      "map": "function (doc) {\n  if(doc.type === \"peoplecount\") {\n    var date = new Date(doc.time);\n    var y = date.getFullYear();\n    var M = date.getMonth();\n    var d = date.getDate();\n    var H = date.getHours();\n    var m = date.getMinutes();\n    \n    var count = {in:0,out:0};\n    count[doc.direction] = doc.amount;\n    \n    emit([doc.deviceId, y, M, d, H, m], count);\n  }\n}",
+      "reduce": "function (keys, values, rereduce) {\n  return values.reduce(function(p, c){\n    p.in += c.in;\n    p.out += c.out;\n    return p;\n  });\n}"
     },
     "all": {
       "map": "function (doc) {\n  if(doc.type === \"peoplecount\") {\n    emit(doc._id, doc);  \n  }\n}"
     },
     "by_year": {
-      "reduce": "function (keys, values, rereduce) {\n  if(rereduce) {\n    return values.reduce(function(p, c){\n      p.in += c.in;\n      p.out += c.out;\n      return p;\n    });\n  } else {\n    return values.reduce(function(p, c) {\n      p[c]++;\n      return p;\n    }, {in:0, out:0});\n  }\n}",
-      "map": "function (doc) {\n  if(doc.type === \"peoplecount\") {\n    var date = new Date(doc.time);\n    var y = date.getFullYear();\n    emit([doc.deviceId, y], doc.direction);\n  }\n}"
+      "reduce": "function (keys, values, rereduce) {\n  return values.reduce(function(p, c){\n    p.in += c.in;\n    p.out += c.out;\n    return p;\n  });\n}",
+      "map": "function (doc) {\n  if(doc.type === \"peoplecount\") {\n    var date = new Date(doc.time);\n    var y = date.getFullYear();\n        \n    var count = {in:0,out:0};\n    count[doc.direction] = doc.amount;\n    \n    emit([doc.deviceId, y], count);\n  }\n}"
     },
     "by_month": {
-      "reduce": "function (keys, values, rereduce) {\n  if(rereduce) {\n    return values.reduce(function(p, c){\n      p.in += c.in;\n      p.out += c.out;\n      return p;\n    });\n  } else {\n    return values.reduce(function(p, c) {\n      p[c]++;\n      return p;\n    }, {in:0, out:0});\n  }\n}",
-      "map": "function (doc) {\n  if(doc.type === \"peoplecount\") {\n    var date = new Date(doc.time);\n    var y = date.getFullYear();\n    var M = date.getMonth();\n    emit([doc.deviceId, y, M], doc.direction);\n  }\n}"
+      "reduce": "function (keys, values, rereduce) {\n  return values.reduce(function(p, c){\n    p.in += c.in;\n    p.out += c.out;\n    return p;\n  });\n}",
+      "map": "function (doc) {\n  if(doc.type === \"peoplecount\") {\n    var date = new Date(doc.time);\n    var y = date.getFullYear();\n    var M = date.getMonth();\n    \n    var count = {in:0,out:0};\n    count[doc.direction] = doc.amount;\n    \n    emit([doc.deviceId, y, M], count);\n  }\n}"
     }
   }
 }
