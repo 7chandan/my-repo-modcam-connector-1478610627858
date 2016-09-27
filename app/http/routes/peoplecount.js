@@ -26,10 +26,11 @@ const validate = (req, res, next) => {
 
 const query = (req, res, next) => {
   const proj = req.params.projection
+  const deviceId = req.params.deviceId
   const start = req.params.start
   const end = req.params.end
 
-  peoplecount.read(proj, start, end)
+  peoplecount.read(proj, deviceId, start, end)
   .then(result => {
     res.json(result)
   })
@@ -39,7 +40,7 @@ const query = (req, res, next) => {
   })
 }
 
-router.get('/:projection/:start/:end', validate, query)
+router.get('/:deviceId/:projection/:start/:end', validate, query)
 
 router.use((err, req, res, next) => {
   next = next || null
