@@ -30,35 +30,25 @@ paths:
         200:
           description: People count
           schema: 
-            $ref: '#/definitions/Count'
-
-definitions:
-  Count:
-    properties:
-      projection:
-        type: string
-      from:
-        type: string
-        format: date
-      to:
-        type: string
-        format: date
-      items:
-        type: array
-        items:
-          $ref: '#/definitions/Item'
-  Item:
-    required: 
-      - date
-      - in
-      - out
-    properties: 
-      date: 
-        type: string
-        format: date
-      in: 
-        type: integer
-        format: int32
-      out: 
-        type: integer
-        format: int32
+            properties:
+              projection:
+                type: string
+              from:
+                type: string
+                format: date
+              to:
+                type: string
+                format: date
+              items:
+                type: array
+                items:
+                  properties:
+                    date:
+                      type: string
+                      format: date
+                    in:
+                      type: integer
+                      format: int32
+                    out:
+                      type: integer
+                      format: int32
