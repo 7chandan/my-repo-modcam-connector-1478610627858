@@ -16,6 +16,7 @@ paths:
           in: path
           required: true
           type: string
+          description: can be either "year", "month", "day", "hour", "minutes"
         - name: startDate
           in: path
           required: true
