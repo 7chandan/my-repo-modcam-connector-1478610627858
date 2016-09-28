@@ -11,15 +11,15 @@ const projectionMeta = unit => {
       format: 'YYYY-MM'
     },
     day: {
-      index: 2,
+      index: 3,
       format: 'YYYY-MM-DD'
     },
     hour: {
-      index: 3,
+      index: 4,
       format: 'YYYY-MM-DD HH'
     },
     minute: {
-      index: 4,
+      index: 5,
       format: 'YYYY-MM-DD HH:mm'
     }
   }
