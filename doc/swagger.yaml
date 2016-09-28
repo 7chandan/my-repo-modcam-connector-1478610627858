@@ -22,11 +22,13 @@ paths:
           required: true
           type: string
           format: date
+          description: will be cut to match granularity of projection
         - name: endDate
           in: path
           required: true
           type: string
           format: date
+          description: will be cut to match granularity of projection
       responses: 
         200:
           description: People count
