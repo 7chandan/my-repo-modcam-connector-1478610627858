@@ -2,6 +2,3 @@
 applications:
 - instances: 5
   memory: 128M
-  services:
-  - mc-iotp
-  - mc-cloudant
