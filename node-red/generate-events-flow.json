@@ -1,0 +1,175 @@
+[
+  {
+    "id": "bed14efe.e8356",
+    "type": "ibmiot out",
+    "z": "3ce4d304.55941c",
+    "authentication": "apiKey",
+    "apiKey": "",
+    "outputType": "evt",
+    "deviceId": "sim1",
+    "deviceType": "MOD.01",
+    "eventCommandType": "io.modcam.peoplecounter",
+    "format": "json",
+    "data": "{\"error\": \"no data\"}",
+    "qos": 0,
+    "name": "send event",
+    "service": "registered",
+    "x": 1246.3929595947266,
+    "y": 330,
+    "wires": []
+  },
+  {
+    "id": "6d9fd6c.528db28",
+    "type": "change",
+    "z": "3ce4d304.55941c",
+    "name": "configuration",
+    "rules": [
+      {
+        "t": "set",
+        "p": "from",
+        "pt": "msg",
+        "to": "2016-09-28",
+        "tot": "str"
+      },
+      {
+        "t": "set",
+        "p": "to",
+        "pt": "msg",
+        "to": "2016-09-29",
+        "tot": "str"
+      },
+      {
+        "t": "set",
+        "p": "amt",
+        "pt": "msg",
+        "to": "5",
+        "tot": "num"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 344.53570556640625,
+    "y": 162.1785249710083,
+    "wires": [
+      [
+        "9595bc7.0913a4"
+      ]
+    ]
+  },
+  {
+    "id": "2f0e6857.d7c9d8",
+    "type": "split",
+    "z": "3ce4d304.55941c",
+    "name": "",
+    "splt": "\\n",
+    "x": 653.7142448425293,
+    "y": 172.49999713897705,
+    "wires": [
+      [
+        "49764ce1.1b9a94"
+      ]
+    ]
+  },
+  {
+    "id": "9595bc7.0913a4",
+    "type": "function",
+    "z": "3ce4d304.55941c",
+    "name": "generate events",
+    "func": "var from = new Date(msg.from)\nvar to = new Date(msg.to)\nvar date = new Date(from)\n\nvar events = []\nwhile(date <= to) {\n    for(var i = 0; i < msg.amt; i++) {\n        events.push(date.getTime())\n    }\n    date.setDate(date.getDate()+1);\n}\n\nreturn {\n    payload: events\n};",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 490.6785659790039,
+    "y": 232.17852306365967,
+    "wires": [
+      [
+        "2f0e6857.d7c9d8"
+      ]
+    ]
+  },
+  {
+    "id": "8be0eca4.fe8fe",
+    "type": "debug",
+    "z": "3ce4d304.55941c",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "false",
+    "x": 1234.7857818603516,
+    "y": 215.07143878936768,
+    "wires": []
+  },
+  {
+    "id": "887c8e11.9cf0c",
+    "type": "inject",
+    "z": "3ce4d304.55941c",
+    "name": "multiple events in range",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 161.25,
+    "y": 82.74996662139893,
+    "wires": [
+      [
+        "6d9fd6c.528db28"
+      ]
+    ]
+  },
+  {
+    "id": "96c9d6e7.67ec88",
+    "type": "function",
+    "z": "3ce4d304.55941c",
+    "name": "randomize payload",
+    "func": "var randomInt = function(range) {\n    return Math.floor(Math.random() * range)\n}\n\nvar randomDir = function() {\n    var dirs = [\"in\", \"out\"]\n    return dirs[randomInt(2)]\n}\n\nvar randomAmt = function() {\n    return randomInt(2) + 1\n}\n\nreturn {\n    payload: {\n        amount: randomAmt(),\n        direction: randomDir(),\n        locale: \"sv\",\n        time: new Date(msg.payload).toISOString()\n    }\n};",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 1023.1071929931641,
+    "y": 300.28573513031006,
+    "wires": [
+      [
+        "8be0eca4.fe8fe",
+        "bed14efe.e8356"
+      ]
+    ]
+  },
+  {
+    "id": "6e56b4b5.9a990c",
+    "type": "inject",
+    "z": "3ce4d304.55941c",
+    "name": "single event now",
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 775.7500076293945,
+    "y": 367.7499704360962,
+    "wires": [
+      [
+        "96c9d6e7.67ec88"
+      ]
+    ]
+  },
+  {
+    "id": "49764ce1.1b9a94",
+    "type": "function",
+    "z": "3ce4d304.55941c",
+    "name": "randomize time",
+    "func": "function randomTime(millis) {\n    var start = millis;\n    var date = new Date(millis);\n    date.setDate(date.getDate()+1);\n    var end = date.getTime();\n    var randomDate = new Date(start + Math.random() * (end - start));\n    return randomDate.getTime();\n}\n\nreturn {\n    payload: randomTime(msg.payload)\n}",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 808.0000152587891,
+    "y": 231.24999809265137,
+    "wires": [
+      [
+        "96c9d6e7.67ec88"
+      ]
+    ]
+  }
+]
