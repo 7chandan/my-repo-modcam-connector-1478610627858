@@ -39,8 +39,14 @@ const arrayToDate = (arr, unit) => {
 
 const dateValid = date => moment(date).isValid()
 
+const padIfHour = dateString => {
+  if(dateString.length === 13) return `${dateString}:00`
+  return dateString
+}
+
 module.exports = {
   dateToArray,
   arrayToDate,
-  dateValid
+  dateValid,
+  padIfHour
 }

@@ -8,8 +8,8 @@ const router = express.Router()
 
 const validate = (req, res, next) => {
   const proj = req.params.projection
-  const start = req.params.start
-  const end = req.params.end
+  const start = util.padIfHour(req.params.start)
+  const end = util.padIfHour(req.params.end)
 
   const validProj = projections.some(p => p === proj)
 
