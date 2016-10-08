@@ -1,0 +1,37 @@
+---
+stages:
+- name: BUILD
+  inputs:
+  - type: git
+    branch: master
+    service: ${REPO}
+  triggers:
+  - type: commit
+  jobs:
+  - name: Build
+    type: builder
+- name: DEPLOY
+  inputs:
+  - type: job
+    stage: BUILD
+    job: Build
+  triggers:
+  - type: stage
+  jobs:
+  - name: Deploy
+    type: deployer
+    target:
+      region_id: ${PROD_REGION_ID}
+      organization: ${PROD_ORG_NAME}
+      space: ${PROD_SPACE_NAME}
+      application: ${CF_APP_NAME}
+    script: |
+      #!/bin/bash
+      echo Deploying $CF_APP
+
+      # Push application to Bluemix, but keep it turned off
+      cf push $CF_APP --no-start
+
+      # Create and bind Cloudant
+      cf cs cloudantNoSQLDB Shared mc-cloudant
+      cf bs $CF_APP mc-cloudant
