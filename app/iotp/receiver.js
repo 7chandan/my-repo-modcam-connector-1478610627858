@@ -6,9 +6,8 @@ const handler = {
 }
 
 const handleEvent = (deviceType, deviceId, eventType, format, payload) => {
-  const data = JSON.parse(payload.toString())
+  const data = JSON.parse(payload.toString().replace(/\0/g,''))
   data.deviceId = deviceId
-
   handler[eventType](data)
   .then(log.debug)
 }
