@@ -1,6 +1,6 @@
 ---
-name: "Modcam Connector with exusting IOTP"
-description: "Single pipeline to deploy Modcam Connector"
+name: "Modcam Connector with existing IOTP"
+description: "Single pipeline to deploy Modcam Connector with an existing Watson IoT Platform instance"
 version: 0.1
 required:
  - deploy
