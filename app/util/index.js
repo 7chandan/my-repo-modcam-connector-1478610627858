@@ -37,11 +37,11 @@ const dateToArray = (date, unit) => {
 }
 
 const arrayToDate = (arr, unit) => {
-  const format = projectionMeta(unit).format
+  const meta = projectionMeta(unit)
   // fix month indexing
   if(meta.index > 1)
     arr[1] = arr[1] - 1;
-  return moment(arr).format(format)
+  return moment(arr).format(meta.format)
 }
 
 const dateValid = date => moment(date).isValid()
