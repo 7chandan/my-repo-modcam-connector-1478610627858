@@ -29,7 +29,11 @@ const projectionMeta = unit => {
 const dateToArray = (date, unit) => {
   const meta = projectionMeta(unit)
   if(!meta) throw new Error('Invalid unit')
-  return moment(date, meta.format).toArray().slice(0, meta.index)
+  var arr = moment(date, meta.format).toArray().slice(0, meta.index)
+  // fix month indexing
+  if(meta.index > 1)
+    arr[1] = arr[1] + 1;
+  return arr;
 }
 
 const arrayToDate = (arr, unit) => {
