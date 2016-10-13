@@ -38,6 +38,9 @@ const dateToArray = (date, unit) => {
 
 const arrayToDate = (arr, unit) => {
   const format = projectionMeta(unit).format
+  // fix month indexing
+  if(meta.index > 1)
+    arr[1] = arr[1] - 1;
   return moment(arr).format(format)
 }
 
